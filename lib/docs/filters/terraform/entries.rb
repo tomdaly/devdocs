@@ -54,7 +54,15 @@ module Docs
       def get_name
         name ||= at_css('#inner h1').content
         name.remove! "» "
-        name.remove! "Data Source: "
+
+        if name.include?("Data Source:")
+          name.remove! "Data Source: "
+          name += " (data source)"
+        else if name.include?("Resource:")
+          name.remove! "Resource: "
+          name += " (resource)"
+        end
+
         name
       end
 
